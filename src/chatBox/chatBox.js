@@ -1,5 +1,6 @@
 //chat box
-const chatBox = ()=>{
+import React from 'react'
+function chatBox(){
     return (
         <header>
             <h1>

@@ -16,7 +16,9 @@ function App() {
         <Main></Main>
       </div>
       <div className="chatBox">
-        <chatBox />
+        {
+          chatBox()
+        }
       </div>
     </div>
   );
