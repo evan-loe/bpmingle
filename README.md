@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# BPMingle
+
+discover new music, and new people while you're at it!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
