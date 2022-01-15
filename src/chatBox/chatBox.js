@@ -1,2 +1,10 @@
 //chat box
-//test number 2
+const chatBox = ()=>{
+    return (
+        <header>
+            <h1>
+                hello
+            </h1>
+        </header>
+    )
+}

@@ -1,6 +1,7 @@
 
 import Main from "./mainPage/Main";
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
+import chatBox from "./chatBox/chatBox"
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
     
       <div className="mainPage">
         <Main></Main>
+      </div>
+      <div className="chatBox">
+        <chatBox />
       </div>
     </div>
   );
