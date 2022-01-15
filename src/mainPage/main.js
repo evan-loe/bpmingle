@@ -1,20 +1,20 @@
 import React from 'react'
 
-function main() {
+function Main() {
     return (
         <div>
             <body>
-                <section class = "show">
+                <section className = "show">
                     <header>
-                        <h2 class = "name">name of our app</h2>
-                        <div class = "toggle"></div>
+                        <h2 className = "name">name of our app</h2>
+                        <div className = "toggle"></div>
                     </header>
 
-                    <video src = "video.mp4" muted loop autoplay></video>
+                    <video src={require('./video.mp4')} muted loop autoplay></video>
 
-                    <div class = "overText"></div>
+                    <div className = "overText"></div>
 
-                    <div class = "text">
+                    <div className = "text">
                         <h2>Music:</h2>
                         <h3>A Universal Language.</h3>
                         <p>asdfjkla;sdfjaklsd;faj;sdklfjadl;skfja;sdlkfj</p> 
@@ -22,7 +22,7 @@ function main() {
                     </div>
                 </section>
 
-                <div class = "menuBear">
+                <div className = "menuBear">
                     <ul>
                         <li><a href= "#">Home</a></li>
                         <li><a href= "#">News</a></li>
@@ -35,4 +35,4 @@ function main() {
     )
 }
 
-export default main
+export default Main
