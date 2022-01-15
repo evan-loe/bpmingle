@@ -1,5 +1,5 @@
 
-import Main from "./mainPage/Main";
+import Main from "./mainPage/main";
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
 import chatBox from "./chatBox/chatBox"
 

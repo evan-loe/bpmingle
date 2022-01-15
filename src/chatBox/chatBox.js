@@ -8,3 +8,5 @@ const chatBox = ()=>{
         </header>
     )
 }
+
+export default chatBox
