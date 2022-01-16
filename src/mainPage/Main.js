@@ -31,7 +31,7 @@ function Main() {
     <div>
       <div className="show" ref={show}>
         <header>
-          <h2 className="logo">BPMingle</h2>
+          <h2 className="logo">SIGNAL</h2>
           <div className="toggle" ref={menuToggle}></div>
         </header>
 
@@ -44,10 +44,10 @@ function Main() {
         <div className="text">
           <h2>Music:</h2>
           <h3>A Universal Language.</h3>
-          <p>asdfjkla;sdfjaklsd;faj;sdklfjadl;skfja;sdlkfj</p>
+          <p>All the senses</p>
 
           <Link to="/genres">
-            <button>Start button</button>
+            <button>Lets Jam!</button>
           </Link>
         </div>
       </div>
@@ -64,7 +64,7 @@ function Main() {
             <a href="#">About</a>
           </li>
           <li>
-            <a href="#">asdf</a>
+            <a href="#">Contact</a>
           </li>
         </ul>
       </div>
