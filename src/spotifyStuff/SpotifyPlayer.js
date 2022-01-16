@@ -13,7 +13,6 @@ import {
 // import { useLocation } from "react-router-dom";
 // import querystring from "query-string";
 
-const client_id = "81aba320a1ad4c94b67b09675dec5622";
 // const client_secret = process.env.SPOTIFY_SECRET;
 
 class SpotifyPlayer extends Component {
@@ -93,17 +92,6 @@ class SpotifyPlayer extends Component {
   async componentWillUnmount() {
     console.log("disconnecting spotify");
     this.state.player.disconnect();
-  }
-
-  async authenticate() {
-    const redirect_uri = "http://localhost:3001/api/callback";
-    let url = "https://accounts.spotify.com/authorize?";
-    url += "client_id=" + client_id;
-    url += "&response_type=code";
-    url += "&redirect_uri=" + encodeURI(redirect_uri);
-    url += "&show_dialog=true";
-    url += "&scope=streaming user-modify-playback-state";
-    window.location.href = url; // redirect user
   }
 
   initializePlayer = async (access_token) => {
@@ -278,7 +266,7 @@ class SpotifyPlayer extends Component {
                 <div>{this.formatDuration(this.state.songDuration)}</div>
               </div>
             </div>
-            <button
+            {/* <button
               id="loginSpotify"
               className={styles.loginSpotifyBtn}
               onClick={this.authenticate}
@@ -288,7 +276,7 @@ class SpotifyPlayer extends Component {
                 className={styles.icon}
               ></FontAwesomeIcon>
               Login to Spotify
-            </button>
+            </button> */}
 
             <div className={styles.slideContainer}>
               <input

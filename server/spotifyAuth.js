@@ -52,7 +52,7 @@ router.get("/callback", (req, res) => {
     .then((response) => {
       console.log(response);
       res.redirect(
-        "http://localhost:3000/#" +
+        "http://localhost:3000/chatroom/#" +
           querystring.stringify({
             access_token: response.data.access_token,
             refresh_token: response.data.refresh_token,
@@ -76,12 +76,12 @@ router.get("/callback", (req, res) => {
   // }
 });
 
-router.get("/exchangeCode", (req, res) => {
-  const code = req.query.code || null;
-  if (!code) {
-    res.json({ status: "error" });
-  }
-});
+// router.get("/exchangeCode", (req, res) => {
+//   const code = req.query.code || null;
+//   if (!code) {
+//     res.json({ status: "error" });
+//   }
+// });
 
 router.get("/refresh_token", (req, res) => {
   let refresh_token = req.query.refresh_token;
