@@ -29,7 +29,7 @@ body {
 }
 .joinChatContainer input {
   color: white;
-  width: 210px;
+  width: 225px;
   height: 40px;
   margin: 7px;
   border: 2px solid white;
@@ -210,5 +210,4 @@ body {
 .spotifyAndText {
   display: flex;
   flex-direction: row;
-  
 }

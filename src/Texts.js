@@ -52,7 +52,7 @@ function Texts({user, username, chatroom }){
                 </ScrollToBottom>
             </div>
             <div className="chat-footer">
-                <input type="text" value={currenttext} placeholder="Hey, you like this song too?" onChange = {(event) => {setcurrenttext(event.target.value)}} onKeyPress={(event) => {event.key === "Enter" && sendtext();}}/>
+                <input type="text" value={currenttext} placeholder="Omg, I love song!" onChange = {(event) => {setcurrenttext(event.target.value)}} onKeyPress={(event) => {event.key === "Enter" && sendtext();}}/>
                 <button onClick={sendtext}>&#9658;</button>
             </div>
         </div>

@@ -28,14 +28,14 @@ function ChatBox() {
           <h1>Ready to mingle?</h1>
           <input
             type="text"
-            placeholder="First name, Last name"
+            placeholder="Name"
             onChange={(event) => {
               setusername(event.target.value);
             }}
           />
           <input
             type="text"
-            placeholder="Song Room"
+            placeholder="Song Room ID"
             onChange={(event) => {
               setchatroom(event.target.value);
             }}
