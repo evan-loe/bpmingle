@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box; 
+    margin:0; 
+    padding: 0; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+.wrapper {
+    display:grid; 
+    grid-template-columns:repeat(auto-fit, minmax(13rem, 17rem)); 
+    justify-content: center; 
+    
+}
+
+.box {
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    cursor: pointer;
+}
+
+.cardImg {
+    height:100%; 
+    /* object-fit: cover;  */
+}
+
+.title {
+    padding: 1rem; 
+    color: black; 
+}
+
+.title:hover {
+    letter-spacing: 2px; 
+    transition-duration: 0.3s; 
+}
+
+.boxButton {
+    /* display: in-line block;  */
+    position: absolute;
+    border: none; 
+    font-size: 1em; 
+    background: white; 
+    padding: 10px 30px; 
+    text-decoration: none;
+    color: black; 
+
+    /* the below line doesnt work rip 
+    i want to move this box a little down */
+
+    margin-top: 100px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+.boxButton:hover{
+    opacity: 0.5; 
+    transition-duration: 0.3s; 
+} 
