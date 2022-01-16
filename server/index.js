@@ -17,7 +17,7 @@ const io = new Server(server, {//pass server created to socket.io
 });
 
 io.on("connection", (socket)=> {//detect connection-> log id
-    console.log(socket.id);
+    console.log("User Connected: ${socket.id}");
 
     socket.on("disconnect", ()=> {//detect disconnect
         console.log("User Has Left", socket.id);
