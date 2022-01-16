@@ -2,6 +2,7 @@
 
 /* is unversal selector */
 * {
+    background: transparent; 
     box-sizing: border-box; 
     margin:0; 
     padding: 0; 
@@ -86,6 +87,7 @@
 .text {
     position: absolute;
     z-index: 10; 
+    background: transparent; 
 }
 
 .text h2 { 
@@ -124,6 +126,7 @@
     margin-top: 100px; 
     text-transform: uppercase; 
     letter-spacing: 2px; 
+    opacity: 0.8; 
 }
 
 .text button:hover{

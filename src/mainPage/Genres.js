@@ -26,7 +26,6 @@ function Genres() {
         </div>
     )
 }
-
 function Box(props){
     return (
         <div className = "box">
