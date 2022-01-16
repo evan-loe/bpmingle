@@ -25,33 +25,36 @@ function ChatBox(prop) {
 
   return (
     //takes in user info compentent
-    <div className="Appl">
-      {!displayText && (
-        <div className="joinChatContainer">
-          <h1>Ready to mingle?</h1>
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={(event) => {
-              setusername(event.target.value);
-            }}
-          />
-          {/* <input
-            type="text"
-            placeholder="Song Room ID"
-            onChange={(event) => {
-              setchatroom(event.target.value);
-            }}
-          /> */}
-          <button onClick={joinroom}>Start Vibing</button>
-        </div>
-      )}
-      <SpotifyPlayer displayText={displayText}></SpotifyPlayer>
-      {displayText && (
-        <div className="spotifyAndText">
-          <Texts user={user} username={username} chatroom={genre} />
-        </div>
-      )}
+    <div className="parentChatContainer">
+      <div className="chatRoomTitle">{`Signalling -> ${genre}`}</div>
+      <div className="Appl">
+        {!displayText && (
+          <div className="joinChatContainer">
+            <h1>Ready to mingle?</h1>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(event) => {
+                setusername(event.target.value);
+              }}
+            />
+            {/* <input
+              type="text"
+              placeholder="Song Room ID"
+              onChange={(event) => {
+                setchatroom(event.target.value);
+              }}
+            /> */}
+            <button onClick={joinroom}>Start Vibing</button>
+          </div>
+        )}
+        <SpotifyPlayer displayText={displayText}></SpotifyPlayer>
+        {displayText && (
+          <div className="spotifyAndText">
+            <Texts user={user} username={username} chatroom={genre} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

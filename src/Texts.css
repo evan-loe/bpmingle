@@ -1,13 +1,25 @@
+.parentChatContainer {
+  background-color: #ee4f4f;
+  filter: brightness(90%);
+}
+
+.chatRoomTitle {
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 20px 50px;
+}
+
 .Appl {
   color: white;
   width: 100vw;
-  height: fit-content;
+  height: 90vh;
   /* background: url("back.jpg"); */
   background-size: cover;
   opacity: 0.95;
   /* font-family: "Open Sans", sans-serif; */
-  background-color: #ee4f4f;
-  filter: brightness(90%);
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -206,8 +218,6 @@ body {
   opacity: 0 !important;
 }
 
-
-
 .chat-footer input::placeholder {
   color: white;
   opacity: 1;
@@ -215,7 +225,7 @@ body {
 .joinChatContainer input::placeholder {
   color: white;
   opacity: 1;
-  color:white; 
+  color: white;
 }
 .spotifyAndText {
   display: flex;
