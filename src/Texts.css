@@ -128,7 +128,7 @@ body {
   height: auto;
   min-height: 40px;
   max-width: 120px;
-  background-color: white;
+  background-color: rgb(68, 190, 68);
   border-radius: 5px;
   color: white;
   display: flex;
