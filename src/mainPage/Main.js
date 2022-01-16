@@ -23,6 +23,10 @@ function Main() {
     show.current.classList.toggle("active");
   }
 
+  function onClick() {
+    
+  }
+
   return (
     <div>
       <div className="show" ref={show}>
