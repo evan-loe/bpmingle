@@ -183,7 +183,7 @@ class SpotifyPlayer extends Component {
       console.log("Spotify not done loading yet!");
       return;
     }
-    this.state.player.nextTrack().then(() => {
+    this.state.player.previousTrack().then(() => {
       console.log("Skipped to next song!");
     });
   }
