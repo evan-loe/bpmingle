@@ -1,16 +1,16 @@
 .Appl {
-  color: white; 
+  color: white;
   width: 100vw;
   height: 100vh;
-  background: url('back.jpg'); 
+  background: url("back.jpg");
   background-size: cover;
-  opacity:0.95;  
+  opacity: 0.95;
   /* font-family: "Open Sans", sans-serif; */
-  background-color: black; 
-  filter:brightness(90%);
+  background-color: black;
+  filter: brightness(90%);
   display: grid;
   place-items: center;
-}  
+}
 body {
   margin: 0%;
   padding: 0%;
@@ -28,7 +28,7 @@ body {
   margin-bottom: 1rem;
 }
 .joinChatContainer input {
-  color: white; 
+  color: white;
   width: 210px;
   height: 40px;
   margin: 7px;
@@ -53,10 +53,10 @@ body {
 }
 
 .joinChatContainer button:hover {
-  opacity: 0.65; 
-  transition-duration: 0.3s; 
-  transform:scale(1.05); 
-  transition-duration: 0.2s
+  opacity: 0.65;
+  transition-duration: 0.3s;
+  transform: scale(1.05);
+  transition-duration: 0.2s;
 }
 
 .chat-window {
@@ -72,7 +72,7 @@ body {
   border-radius: 6px;
   background: white;
   position: relative;
-  margin-bottom: -3px; 
+  margin-bottom: -3px;
   cursor: pointer;
 }
 .chat-window .chat-header p {
@@ -81,7 +81,7 @@ body {
   /* keep this black */
   color: black;
   font-weight: 700;
-  text-transform: uppercase; 
+  text-transform: uppercase;
   line-height: 45px;
 }
 
@@ -201,4 +201,14 @@ body {
 }
 .hide {
   opacity: 0 !important;
-} 
+}
+
+.chat-footer input::placeholder {
+  opacity: 1;
+}
+
+.spotifyAndText {
+  display: flex;
+  flex-direction: row;
+  
+}
