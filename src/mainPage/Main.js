@@ -1,5 +1,5 @@
 import React from "react";
-import myVideo from "./Videos/vid.mp4";
+// import myVideo from "./Videos/vid.mp4";
 import styles from "./Main.css";
 import { Link } from "react-router-dom";
 import { useRef, useEffect } from "react";
@@ -35,8 +35,8 @@ function Main() {
           <div className="toggle" ref={menuToggle}></div>
         </header>
 
-        <video muted autoplay loop>
-          <source src={myVideo} type="video/mp4" ></source>
+        <video muted autoPlay loop>
+          <source src={require("./Videos/vid.mp4")} type="video/mp4"></source>
         </video>
 
         <div className="overlay"></div>

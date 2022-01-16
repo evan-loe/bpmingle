@@ -8,7 +8,6 @@ class spotifyAPI {
   }
 
   async getGenreSongs(genre) {
-    console.log(this.access_token, genre);
     return await axios
       .get(`${this.spotifyBaseURL}/recommendations`, {
         params: {
@@ -21,8 +20,6 @@ class spotifyAPI {
       })
       .then((response) => {
         const songs = [];
-        console.log(response);
-        console.log(response.data.tracks.length);
         for (const track of response.data.tracks) {
           songs.push(track.uri);
         }

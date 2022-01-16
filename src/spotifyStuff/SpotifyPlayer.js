@@ -93,7 +93,7 @@ class SpotifyPlayer extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log("Component Updating", this.state);
+    // console.log("Component Updating", this.state);
   }
 
   async componentWillUnmount() {
@@ -215,22 +215,35 @@ class SpotifyPlayer extends Component {
     });
   }
 
-  async seekSlide(event) {}
+  async seekSlide(event) {
+    // lol not working fix later
+    // console.log(event);
+    // console.log(event.target);
+    // console.log((event.target.valueAsNumber / 100) * this.state.duration);
+    // this.setState({
+    //   seekPos: (event.target.valueAsNumber / 100) * this.state.duration,
+    // });
+    // this.state.player.seek(
+    //   (event.target.valueAsNumber / 100) * this.state.duration
+    // );
+  }
 
   formatDuration(seconds) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds - hours * 60) / 60);
     return (
       (hours !== 0 ? `${hours}` : "") +
-      `${minutes}:${Math.floor(seconds - hours * 60 - minutes * 60).toPrecision(
-        2
-      )}`
+      `${minutes === 0 ? "0" : minutes}:${
+        Math.floor(seconds - hours * 60 - minutes * 60) < 10
+          ? `0${Math.floor(seconds - hours * 60 - minutes * 60)}`
+          : Math.floor(seconds - hours * 60 - minutes * 60)
+      }`
     );
   }
 
   render() {
     return !this.props.displayText ? (
-      <div>move along...nothing to see here!</div>
+      <div></div>
     ) : (
       <div>
         <div className={styles.spotifyContainer}>
@@ -290,9 +303,11 @@ class SpotifyPlayer extends Component {
                 type="range"
                 min="0"
                 max="100"
-                value={this.state.seekPos / 1000}
+                value={
+                  (this.state.seekPos / this.state.currentSong.duration) * 100
+                }
                 className={styles.seeker}
-                onChange={this.seekSlide}
+                // onChange={this.seekSlide}
               />
               <div className={styles.labelContainer}>
                 <div>{this.formatDuration(this.state.seekPos / 1000)}</div>

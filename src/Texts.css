@@ -1,15 +1,17 @@
 .Appl {
   color: white;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   /* background: url("back.jpg"); */
   background-size: cover;
   opacity: 0.95;
   /* font-family: "Open Sans", sans-serif; */
   background-color: #ee4f4f;
   filter: brightness(90%);
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 body {
   margin: 0%;
