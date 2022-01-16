@@ -1,8 +1,8 @@
 import Main from "./mainPage/Main";
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
-import chatBox from "./chatBox/chatBox";
-import io from "socket.io"
-const socket = io.connect("http://localhost:3001");//connect frontend to backend
+//import chatBox from "./chatBox/chatBox";
+//import io from "socket.io"
+//const socket = io.connect("http://localhost:3001");//connect frontend to backend
 function App() {
   return (
     <div className="App">
