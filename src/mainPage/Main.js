@@ -44,7 +44,7 @@ function Main() {
         <div className="text">
           <h2>Music:</h2>
           <h3>A Universal Language.</h3>
-          <p>All the senses</p>
+          <p>Love music, and want to meet your new lover? </p>
 
           <Link to="/genres">
             <button>Lets Jam!</button>
