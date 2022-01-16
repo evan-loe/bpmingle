@@ -8,10 +8,11 @@ class spotifyAPI {
   }
 
   async getGenreSongs(genre) {
+    console.log(this.access_token, genre);
     return await axios
       .get(`${this.spotifyBaseURL}/recommendations`, {
         params: {
-          seed_genres: genre,
+          seed_genres: genre ?? "r-n-b",
         },
         headers: {
           "Content-Type": "application/json",

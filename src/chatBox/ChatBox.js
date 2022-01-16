@@ -1,16 +1,20 @@
 // chat box compent
 import io from "socket.io-client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Texts from "../Texts";
 
 import SpotifyPlayer from "../spotifyStuff/SpotifyPlayer";
 
 const user = io.connect("http://localhost:3001"); //connect frontend to backend
 
-function ChatBox() {
+function ChatBox(props) {
   const [username, setusername] = useState("");
   const [chatroom, setchatroom] = useState("");
-  const [dispalyText, setdisplaytext] = useState(false);
+  const [displayText, setdisplaytext] = useState(false);
+
+  useEffect(() => {
+    setchatroom(props.genre);
+  }, []);
 
   const joinroom = () => {
     //requirements to join room
@@ -23,7 +27,7 @@ function ChatBox() {
   return (
     //takes in user info compentent
     <div className="Appl">
-      {!dispalyText && (
+      {!displayText && (
         <div className="joinChatContainer">
           <h1>Ready to mingle?</h1>
           <input
@@ -43,9 +47,9 @@ function ChatBox() {
           <button onClick={joinroom}>Start Vibing</button>
         </div>
       )}
-      {dispalyText && (
+      <SpotifyPlayer displayText={displayText} genre={"r-n-b"}></SpotifyPlayer>
+      {displayText && (
         <div className="spotifyAndText">
-          <SpotifyPlayer></SpotifyPlayer>
           <Texts user={user} username={username} chatroom={chatroom} />
         </div>
       )}

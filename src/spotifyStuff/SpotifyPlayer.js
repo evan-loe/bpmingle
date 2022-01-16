@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import spotifyAPI from "./spotifyAPI";
 import styles from "./assets/SpotifyPlayer.module.css";
-import { faSpotify } from "@fortawesome/free-brands-svg-icons";
+// import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
@@ -27,6 +27,7 @@ class SpotifyPlayer extends Component {
     currentSong: {},
     playing: false,
     songDuration: 0,
+    genre: "r-n-b",
   };
 
   // pass in genre prop
@@ -69,7 +70,13 @@ class SpotifyPlayer extends Component {
     return hashParams;
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    const genre = localStorage.getItem("selectedGenre");
+    console.log(genre);
+    this.setState({
+      genre: genre ?? "r-n-b",
+    });
+
     const params = this.getHashParams();
     console.log(params);
     if (!params.access_token || !params.refresh_token) return;
@@ -82,7 +89,7 @@ class SpotifyPlayer extends Component {
         }
       };
     }
-    await this.loadSpotifySDK();
+    this.loadSpotifySDK();
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -152,7 +159,7 @@ class SpotifyPlayer extends Component {
       console.log("Spotify not done loading yet!");
       return;
     }
-    const songs = await this.state.api.getGenreSongs(this.props.genre);
+    const songs = await this.state.api.getGenreSongs(this.state.genre);
     console.log(songs);
     this.state.api.play(songs).catch((err) => {
       console.log(err);
@@ -198,7 +205,9 @@ class SpotifyPlayer extends Component {
   }
 
   render() {
-    return (
+    return !this.props.displayText ? (
+      <div>move along...nothing to see here!</div>
+    ) : (
       <div>
         <div className={styles.spotifyContainer}>
           <div className={styles.songDetailsContainer}>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Main from "./mainPage/Main";
 import Genres from "./mainPage/Genres";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -8,6 +9,8 @@ const socket = io.connect("http://localhost:3001"); //connect frontend to backen
 // import Texts from "./Texts";
 
 function App() {
+  const [genre, setGenre] = useState("r-n-b");
+
   return (
     <div className="App">
       {/* TODO: remove this header thing and add our main page component here. We also probably need to decide what states needs to be lifted up to this level*/}
@@ -17,8 +20,8 @@ function App() {
           {/* <a href="/home">Go to home page.</a> */}
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route path="/genres" element={<Genres />} />
-            <Route path="/chatroom" element={<ChatBox />} />
+            <Route path="/genres" element={<Genres setGenre={setGenre} />} />
+            <Route path="/chatroom" element={<ChatBox genre={genre} />} />
           </Routes>
         </Router>
       </div>
