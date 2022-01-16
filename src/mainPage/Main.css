@@ -2,6 +2,7 @@
 
 /* is unversal selector */
 * {
+    background: transparent; 
     box-sizing: border-box; 
     margin:0; 
     padding: 0; 
@@ -24,7 +25,7 @@
 }
 
 .show.active {
-    right: 200px; 
+    right: 150px; 
 }
 
 .show header {
@@ -49,7 +50,7 @@
     position: relative; 
     width: 60px; 
     height: 60px; 
-    background: url('menu.png');
+    background: url('images/menu.png');
     background-repeat: no-repeat;
     background-size: 38px; 
     background-position: center; 
@@ -58,7 +59,7 @@
 }
 
 .toggle.active{
-    background: url('close.png');
+    background: url('images/close.png');
     background-repeat: no-repeat;
     background-size: 17px; 
     background-position: center; 
@@ -86,6 +87,7 @@
 .text {
     position: absolute;
     z-index: 10; 
+    background: transparent; 
 }
 
 .text h2 { 
@@ -113,6 +115,7 @@
     border: none; 
     font-size: 1em; 
     background: white; 
+    border-radius: 5px; 
     padding: 10px 30px; 
     text-decoration: none;
     color: black; 
@@ -123,19 +126,21 @@
     margin-top: 100px; 
     text-transform: uppercase; 
     letter-spacing: 2px; 
+    opacity: 0.8; 
 }
 
-
 .text button:hover{
-    opacity: 0.5; 
+    opacity: 0.6; 
     transition-duration: 0.3s; 
+    transform:scale(1.05); 
+    transition-duration: 0.2s
 } 
 
 .menu {
-    position: absolute;
+    position:absolute;
     top: 0; 
     right: 0; 
-    width: 300px; 
+    width: 150px; 
     height: 100%; 
     display: flex;  
     align-items:center; 
@@ -143,7 +148,7 @@
 } 
 
 .menu ul {
-    position: none;
+    position: relative;
     list-style-type: none;
 }
 
