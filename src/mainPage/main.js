@@ -7,7 +7,7 @@ function Main() {
         <div>
             <div className = "show">
                 <header>
-                    <h2 className = "name">Travel</h2>
+                    <h2 className = "logo">BPMingle</h2>
                     <div className = "toggle"></div>
                 </header>
 
@@ -15,7 +15,7 @@ function Main() {
                     <source src = {myVideo} type = "video/mp4"/>
                 </video> 
 
-                <div className = "overText"></div>
+                <div className = "overlay"></div>
 
                 <div className = "text">
                     <h2>Music:</h2>
