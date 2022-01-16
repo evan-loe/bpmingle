@@ -28,6 +28,7 @@ class SpotifyPlayer extends Component {
     playing: false,
     songDuration: 0,
     genre: "r-n-b",
+    seekPos: 0,
   };
 
   // pass in genre prop
@@ -37,6 +38,7 @@ class SpotifyPlayer extends Component {
     this.volumeSlider = this.volumeSlider.bind(this);
     this.nextSong = this.nextSong.bind(this);
     this.prevSong = this.prevSong.bind(this);
+    this.seekSlide = this.seekSlide.bind(this);
   }
 
   loadSpotifySDK() {
@@ -72,13 +74,11 @@ class SpotifyPlayer extends Component {
 
   componentDidMount() {
     const genre = localStorage.getItem("selectedGenre");
-    console.log(genre);
     this.setState({
       genre: genre ?? "r-n-b",
     });
 
     const params = this.getHashParams();
-    console.log(params);
     if (!params.access_token || !params.refresh_token) return;
     else if (!window.onSpotifyWebPlaybackSDKReady) {
       window.onSpotifyWebPlaybackSDKReady = () => {
@@ -119,9 +119,52 @@ class SpotifyPlayer extends Component {
       }
     });
 
-    player.addListener("ready", ({ device_id }) => {
-      console.log(device_id);
+    player.addListener(
+      "player_state_changed",
+      ({
+        paused,
+        track_window: { current_track, next_tracks },
+        position,
+        duration,
+      }) => {
+        console.log("state changed!");
+        if (this.state.songTimer) {
+          clearInterval(this.state.songTimer);
+        }
+        if (paused) {
+          this.setState({ seekPos: position });
+        } else {
+          const songTimer = setInterval(() => {
+            if (this.state.seekPos < duration) {
+              this.setState({ seekPos: this.state.seekPos + 1000 });
+            } else {
+              clearInterval(this.state.songTimer);
+            }
+          }, 1000);
+          this.setState({
+            currentSong: {
+              name: current_track.name,
+              album: current_track.album.name,
+              albumArt: current_track.album.images[0].url,
+              id: current_track.id,
+              artists: current_track.artists.map((artist) => {
+                return artist.name;
+              }),
+              duration: duration,
+            },
+            seekPos: position,
+            songTimer: songTimer,
+          });
+        }
+      }
+    );
+
+    player.addListener("ready", async ({ device_id }) => {
       const api = new spotifyAPI({ device_id, access_token });
+      const songs = await api.getGenreSongs(this.state.genre);
+      api.play(songs).catch((err) => {
+        console.log(err);
+      });
 
       this.setState({
         access_token: access_token,
@@ -129,28 +172,9 @@ class SpotifyPlayer extends Component {
         device_id: device_id,
         status: "READY",
         api: api,
+        playing: true,
       });
     });
-
-    player.addListener(
-      "player_state_changed",
-      ({ paused, track_window: { current_track, next_tracks } }) => {
-        if (paused) this.setState({ currentSong: {} });
-        else {
-          this.setState({
-            currentSong: {
-              name: current_track.name,
-              album: current_track.album.name,
-              albumArt: current_track.album.images[0].url,
-              artists: current_track.artists.map((artist) => {
-                return artist.name;
-              }),
-              // songDuration:
-            },
-          });
-        }
-      }
-    );
   };
 
   async togglePlay() {
@@ -159,11 +183,7 @@ class SpotifyPlayer extends Component {
       console.log("Spotify not done loading yet!");
       return;
     }
-    const songs = await this.state.api.getGenreSongs(this.state.genre);
-    console.log(songs);
-    this.state.api.play(songs).catch((err) => {
-      console.log(err);
-    });
+    this.state.player.togglePlay();
     this.setState({ playing: !this.state.playing });
     // request songs
   }
@@ -195,12 +215,16 @@ class SpotifyPlayer extends Component {
     });
   }
 
+  async seekSlide(event) {}
+
   formatDuration(seconds) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds - hours * 60) / 60);
     return (
-      (hours ? `${hours}` : "") +
-      `${minutes}:${Math.floor(seconds - hours * 60 - minutes * 60)}`
+      (hours !== 0 ? `${hours}` : "") +
+      `${minutes}:${Math.floor(seconds - hours * 60 - minutes * 60).toPrecision(
+        2
+      )}`
     );
   }
 
@@ -266,13 +290,15 @@ class SpotifyPlayer extends Component {
                 type="range"
                 min="0"
                 max="100"
-                value={this.state.volume}
+                value={this.state.seekPos / 1000}
                 className={styles.seeker}
-                onChange={this.volumeSlider}
+                onChange={this.seekSlide}
               />
               <div className={styles.labelContainer}>
-                <div>0:00</div>
-                <div>{this.formatDuration(this.state.songDuration)}</div>
+                <div>{this.formatDuration(this.state.seekPos / 1000)}</div>
+                <div>
+                  {this.formatDuration(this.state.currentSong.duration / 1000)}
+                </div>
               </div>
             </div>
             {/* <button

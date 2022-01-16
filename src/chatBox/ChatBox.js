@@ -1,29 +1,28 @@
 // chat box compent
 import io from "socket.io-client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Texts from "../Texts";
 
 import SpotifyPlayer from "../spotifyStuff/SpotifyPlayer";
 
 const user = io.connect("http://localhost:3001"); //connect frontend to backend
 
-function ChatBox(props) {
+function ChatBox(prop) {
   const [username, setusername] = useState("");
-  const [chatroom, setchatroom] = useState("");
   const [displayText, setdisplaytext] = useState(false);
-
-  useEffect(() => {
-    setchatroom(props.genre);
-  }, []);
+  const [genre, setGenre] = useState(
+    localStorage.getItem("selectedGenre") ?? "r-n-b"
+  );
 
   const joinroom = () => {
     //requirements to join room
-    if (username !== "" && chatroom !== "") {
+    if (username !== "" && genre !== "") {
       //user join room
-      user.emit("joinroom", chatroom);
+      user.emit("joinroom", genre);
       setdisplaytext(true);
     }
   };
+
   return (
     //takes in user info compentent
     <div className="Appl">
@@ -37,20 +36,20 @@ function ChatBox(props) {
               setusername(event.target.value);
             }}
           />
-          <input
+          {/* <input
             type="text"
             placeholder="Song Room ID"
             onChange={(event) => {
               setchatroom(event.target.value);
             }}
-          />
+          /> */}
           <button onClick={joinroom}>Start Vibing</button>
         </div>
       )}
-      <SpotifyPlayer displayText={displayText} genre={"r-n-b"}></SpotifyPlayer>
+      <SpotifyPlayer displayText={displayText}></SpotifyPlayer>
       {displayText && (
         <div className="spotifyAndText">
-          <Texts user={user} username={username} chatroom={chatroom} />
+          <Texts user={user} username={username} chatroom={genre} />
         </div>
       )}
     </div>

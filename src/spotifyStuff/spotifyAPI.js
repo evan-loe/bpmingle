@@ -30,6 +30,19 @@ class spotifyAPI {
       });
   }
 
+  async getTrack(id) {
+    axios
+      .get(`${this.spotifyBaseURL}/track${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.access_token}`,
+        },
+      })
+      .then((response) => {
+        return response;
+      });
+  }
+
   // async addToQueue(uri) {
   //   console.log(uri);
   //   axios.post(`${this.spotifyBaseURL}/me/player/queue`);
