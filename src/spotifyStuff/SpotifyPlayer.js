@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import spotifyAPI from "./spotifyAPI";
 import styles from "./assets/SpotifyPlayer.module.css";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
-import querystring from "query-string";
+// import axios from "axios";
+// import { useLocation } from "react-router-dom";
+// import querystring from "query-string";
 
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
-const client_secret = process.env.SPOTIFY_SECRET;
+// const client_secret = process.env.SPOTIFY_SECRET;
 
 class SpotifyPlayer extends Component {
   state = {

@@ -34,7 +34,6 @@ router.get("/login", (req, res) => {
 router.get("/callback", (req, res) => {
   console.log("callback");
   const code = req.query.code || null;
-  const state = req.query.state || null;
   axios({
     method: "post",
     url: "https://accounts.spotify.com/api/token",
