@@ -44,7 +44,6 @@ function ChatBox() {
         //display chat after sign in
         <Texts user={user} username={username} chatroom={chatroom} />
       )}
-      ;
     </div>
   );
 }
