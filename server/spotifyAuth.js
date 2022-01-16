@@ -3,8 +3,6 @@ const router = express.Router();
 const { generateRandomString } = require("./utils/utils");
 const querystring = require("query-string");
 const axios = require("axios");
-const result = require("dotenv").config();
-console.log(result);
 
 const redirect_uri = "http://localhost:3001/api/callback";
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
