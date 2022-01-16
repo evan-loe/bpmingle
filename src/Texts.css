@@ -2,11 +2,11 @@
   color: white;
   width: 100vw;
   height: 100vh;
-  background: url("back.jpg");
+  /* background: url("back.jpg"); */
   background-size: cover;
   opacity: 0.95;
   /* font-family: "Open Sans", sans-serif; */
-  background-color: black;
+  background-color: #ee4f4f;
   filter: brightness(90%);
   display: grid;
   place-items: center;
@@ -70,16 +70,17 @@ body {
 .chat-window .chat-header {
   height: 45px;
   border-radius: 6px;
-  background: white;
+  background: rgba(255, 255, 255, 0);
   position: relative;
-  margin-bottom: -3px;
+  /* margin-bottom: -3px; */
   cursor: pointer;
 }
 .chat-window .chat-header p {
   display: block;
   padding: 0 1em 0 2em;
+  border: 2px solid white;
   /* keep this black */
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: 700;
   text-transform: uppercase;
   line-height: 45px;
