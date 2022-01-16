@@ -24,7 +24,8 @@ io.on("connection", (user)=> {//detect connection-> log id
         console.log('user: ' + user.id + ' joined chat room: ' + roomID);
     });
     user.on("sendtext", (data) => {
-        console.log(data);
+        // console.log(data);
+        user.to(data.chatroom).emit("gettext", data);//forward data to other users
     });
     user.on("disconnect", ()=> {//detect disconnect
         console.log("User Left: " + user.id);

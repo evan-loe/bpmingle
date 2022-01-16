@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Texts({user, username, chatroom }){
     const [currenttext, setcurrenttext] = useState("");
 
-    const sendtext = async()=>{
+    const sendtext = async()=>{//send data to backend
         if (currenttext !==""){//prevent empty test
             const textData = {//data within a message
                 chatroom: chatroom,
@@ -14,6 +14,12 @@ function Texts({user, username, chatroom }){
             await user.emit("sendtext", textData);
         }
     };
+
+    useEffect(()=>{
+        user.on("gettext", (data)=>{
+            console.log(data);
+        })
+    }, [user]);
     return(
         <div>
             <div className="text-header">
