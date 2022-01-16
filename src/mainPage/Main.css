@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+/* is unversal selector */
+* {
+    box-sizing: border-box; 
+    margin:0; 
+    padding: 0; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+.show {
+    position: relative; 
+    right: 0; 
+    width: 100%;
+    min-height: 100vh; 
+    padding:100px; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    background: black; 
+    color: white;  
+    z-index: 2; 
+}
+
+.showcase header {
+    position: absolute; 
+    top: 0; 
+    left:0; 
+    width: 100%; 
+
+}
+
+.toggle {
+    position: relative; 
+    width: 60px; 
+    height: 60px; 
+    background: url('menu.png');
+    background-repeat: no-repeat;
+    background-size: 30px; 
+    background-position: center; 
+    cursor: pointer; 
+
+}
+
