@@ -2,6 +2,7 @@ import Main from "./mainPage/Main";
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
 import chatBox from "./chatBox/ChatBox";
 import io from "socket.io-client";
+import Texts from "./Texts";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Main></Main>
       </div>
       <div className="chatBox">{chatBox()}</div>
+      {/* <div className="chatBox">{Texts()}</div> */}
     </div>
   );
 }
