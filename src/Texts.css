@@ -205,9 +205,13 @@ body {
 }
 
 .chat-footer input::placeholder {
+  color: white;
   opacity: 1;
 }
-
+.joinChatContainer input::placeholder {
+  color: white;
+  opacity: 1;
+}
 .spotifyAndText {
   display: flex;
   flex-direction: row;
