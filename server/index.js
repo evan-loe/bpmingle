@@ -3,19 +3,18 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
-const Server = require("socket.io").Server;//import socket.io library
+const Server = require("socket.io").Server; //import socket.io library
 
-app.use(cors());//cors midware
+app.use(cors()); //cors midware
 
-const server = http.createServer(app);//generate server
+const spotifyRoutes = require("./spotifyAuth");
+app.use("/api", spotifyRoutes);
 
-const io = new Server(server, {//pass server created to socket.io
-    cors: {
-        origin: "http://localhost:3000",//to be changed
-        methods: ["GET", "POST"],
-    },
+app.get("/cheese", () => {
+  console.log("getting cheese");
 });
 
+<<<<<<< HEAD
 io.on("connection", (user)=> {//detect connection-> log id
     console.log('User Joined: ' + user.id);
 
@@ -30,8 +29,28 @@ io.on("connection", (user)=> {//detect connection-> log id
     user.on("disconnect", ()=> {//detect disconnect
         console.log("User Left: " + user.id);
     });
+=======
+const server = http.createServer(app); //generate server
+
+const io = new Server(server, {
+  //pass server created to socket.io
+  cors: {
+    origin: "http://localhost:5000", //to be changed
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  //detect connection-> log id
+  console.log(socket.id);
+
+  socket.on("disconnect", () => {
+    //detect disconnect
+    console.log("User Has Left", socket.id);
+  });
+>>>>>>> 958ebb3 (auth is finally frikin working)
 });
 
 server.listen(3001, () => {
-    console.log("is running")
+  console.log("is running");
 });

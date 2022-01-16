@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import spotifyAPI from "./spotifyAPI";
 import styles from "./assets/SpotifyPlayer.module.css";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import querystring from "query-string";
+
+const client_id = "81aba320a1ad4c94b67b09675dec5622";
+const client_secret = process.env.SPOTIFY_SECRET;
 
 class SpotifyPlayer extends Component {
   state = {
@@ -10,6 +16,7 @@ class SpotifyPlayer extends Component {
     status: "NOT_LOADED",
     api: null,
     volume: 50,
+    sdkLoaded: false,
   };
 
   constructor(props) {
@@ -37,11 +44,29 @@ class SpotifyPlayer extends Component {
     });
   }
 
+  getHashParams() {
+    var hashParams = {};
+    var e,
+      r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    while ((e = r.exec(q))) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+    return hashParams;
+  }
+
   async componentDidMount() {
-    if (!window.onSpotifyWebPlaybackSDKReady) {
-      window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
-    } else {
-      this.initializePlayer();
+    const params = this.getHashParams();
+    console.log(params);
+    if (!params.access_token || !params.refresh_token) return;
+    else if (!window.onSpotifyWebPlaybackSDKReady) {
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        this.setState({ sdkLoaded: true });
+        if (params.access_token && params.refresh_token) {
+          this.setState({ refresh_token: params.refresh_token });
+          this.initializePlayer(params.access_token);
+        }
+      };
     }
     await this.loadSpotifySDK();
   }
@@ -56,38 +81,44 @@ class SpotifyPlayer extends Component {
   }
 
   async authenticate() {
-    return "BQDEk2nULAGkfInAfE9xlQzS_btJd8RWe20edhjic3HJ_XxeRHvcL67TQjCtWnEaLM02IVp8h0IhgQkhIQmjjKSVK7yUSiZjn5JJjU4RV-WTTyWYTljhq8c6dQ_lD69_PhF58J_ZteAxG6FfhBTGwtL4WiSzFZAJ1oUvxST1ylEWdHfJhe4YdBo";
+    const redirect_uri = "http://localhost:3001/api/callback";
+    let url = "https://accounts.spotify.com/authorize?";
+    url += "client_id=" + client_id;
+    url += "&response_type=code";
+    url += "&redirect_uri=" + encodeURI(redirect_uri);
+    url += "&show_dialog=true";
+    url += "&scope=streaming";
+    window.location.href = url; // redirect user
   }
 
-  initializePlayer = async () => {
+  initializePlayer = async (access_token) => {
     console.log("intializing player");
     this.setState({ status: "INITIALIZING" });
-    await this.authenticate().then((access_token) => {
-      console.log("done auth, creating player");
-      const player = new window.Spotify.Player({
-        name: "BPMingle",
-        getOAuthToken: (callback) => {
-          callback(access_token);
-        },
-      });
+    console.log("done auth, creating player");
 
-      player.connect().then((success) => {
-        if (success) {
-          console.log("The web playback SDK is workiunnnn");
-        }
-      });
+    const player = new window.Spotify.Player({
+      name: "BPMingle",
+      getOAuthToken: (callback) => {
+        callback(access_token);
+      },
+    });
 
-      player.addListener("ready", ({ device_id }) => {
-        console.log(device_id);
-        const api = new spotifyAPI({ device_id, access_token });
+    player.connect().then((success) => {
+      if (success) {
+        console.log("The web playback SDK is workiunnnn");
+      }
+    });
 
-        this.setState({
-          access_token: access_token,
-          player: player,
-          device_id: device_id,
-          status: "READY",
-          api: api,
-        });
+    player.addListener("ready", ({ device_id }) => {
+      console.log(device_id);
+      const api = new spotifyAPI({ device_id, access_token });
+
+      this.setState({
+        access_token: access_token,
+        player: player,
+        device_id: device_id,
+        status: "READY",
+        api: api,
       });
     });
   };
@@ -114,6 +145,9 @@ class SpotifyPlayer extends Component {
           disabled={this.state.status !== "READY"}
         >
           Toggle Play
+        </button>
+        <button id="loginSpotify" onClick={this.authenticate}>
+          Login to Spotify
         </button>
         <input
           type="range"

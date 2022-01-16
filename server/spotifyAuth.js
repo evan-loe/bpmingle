@@ -2,19 +2,22 @@ const express = require("express");
 const router = express.Router();
 const { generateRandomString } = require("./utils/utils");
 const querystring = require("query-string");
-const path = require("path");
-const config = require("dotenv").config(path.join(__dirname, "/.env"));
-console.log("loading dotenv", config);
+const axios = require("axios");
+const result = require("dotenv").config();
+console.log(result);
 
+const redirect_uri = "http://localhost:3001/api/callback";
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 const client_secret = process.env.SPOTIFY_SECRET;
+
+const formUrlEncoded = (x) =>
+  Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, "");
 
 router.get("/login", (req, res) => {
   const state = generateRandomString(16);
   const scope = "streaming";
 
-  const redirect_uri = req.baseUrl + "/api/callback";
-  console.log(redirect_uri);
+  console.log("login route");
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
@@ -29,33 +32,82 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/callback", (req, res) => {
+  console.log("callback");
   const code = req.query.code || null;
   const state = req.query.state || null;
+  axios({
+    method: "post",
+    url: "https://accounts.spotify.com/api/token",
+    data: formUrlEncoded({
+      code: code,
+      redirect_uri: redirect_uri,
+      grant_type: "authorization_code",
+    }),
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer(client_id + ":" + client_secret).toString("base64"),
+    },
+    json: true,
+  })
+    .then((response) => {
+      console.log(response);
+      res.redirect(
+        "http://localhost:3000/#" +
+          querystring.stringify({
+            access_token: response.data.access_token,
+            refresh_token: response.data.refresh_token,
+          })
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({ status: "error" });
+    });
 
-  const redirect_uri = req.baseUrl + "/api/callback";
-  console.log(redirect_uri);
+  // if (state === null) {
+  //   res.redirect(
+  //     "/#" +
+  //       querystring.stringify({
+  //         error: "state_mismatch",
+  //       })
+  //   );
+  // } else {
+  //   res.json({ code, state });
+  // }
+});
 
-  if (state === null) {
-    res.redirect(
-      "/#" +
-        querystring.stringify({
-          error: "state_mismatch",
-        })
-    );
-  } else {
-    const authOptions = {
-      url: "https://accounts.spotify.com/api/token",
-      form: {
-        code: code,
-        redirect_uri: redirect_uri,
-        grant_type: "authorization_code",
-      },
-      headers: {
-        Authorization:
-          "Basic " +
-          new Buffer(client_id + ":" + client_secret).toString("base64"),
-      },
-      json: true,
-    };
+router.get("/exchangeCode", (req, res) => {
+  const code = req.query.code || null;
+  if (!code) {
+    res.json({ status: "error" });
   }
 });
+
+router.get("/refresh_token", (req, res) => {
+  let refresh_token = req.query.refresh_token;
+  axios({
+    method: "post",
+    url: "https://accounts.spotify.com/api/token",
+    data: formUrlEncoded({
+      refresh_token: refresh_token,
+      grant_type: "refresh_token",
+    }),
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer(client_id + ":" + client_secret).toString("base64"),
+    },
+    json: true,
+  })
+    .then((response) => {
+      res.send({
+        access_token: response.data.access_token,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+module.exports = router;
