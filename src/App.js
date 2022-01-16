@@ -2,9 +2,13 @@ import Main from "./mainPage/Main";
 import Genres from "./mainPage/Genres";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"; 
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
-import chatBox from "./chatBox/chatBox";
+import chatBox from "./chatBox/ChatBox";
 import io from "socket.io-client";
+<<<<<<< HEAD
 const socket = io.connect("http://localhost:3001");//connect frontend to backend
+=======
+import Texts from "./Texts";
+>>>>>>> 0fc0b25917afca1a6d5dec6f31f3a941873e75e0
 
 function App() {
   return (
@@ -25,6 +29,7 @@ function App() {
       </Router>
       </div>
       <div className="chatBox">{chatBox()}</div>
+      {/* <div className="chatBox">{Texts()}</div> */}
     </div>
   );
 }
