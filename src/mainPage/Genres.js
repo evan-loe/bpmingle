@@ -3,7 +3,7 @@ import styles from "./Genres.css";
 
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 
-function Genres(props) {
+function Genres() {
   return (
     <div className="wrapper">
       <Box
