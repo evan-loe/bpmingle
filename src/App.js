@@ -1,8 +1,11 @@
 import Main from "./mainPage/Main";
+import Genres from "./mainPage/Genres";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"; 
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
 import chatBox from "./chatBox/chatBox";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");//connect frontend to backend
+
 function App() {
   return (
     <div className="App">
@@ -13,7 +16,13 @@ function App() {
       {/* TODO: remove this header thing and add our main page component here. We also probably need to decide what states needs to be lifted up to this level*/}
       <SpotifyPlayer></SpotifyPlayer>
       <div className="mainPage">
-      <Main></Main>
+      <Router>
+        {/* <a href="/home">Go to home page.</a> */}
+        <Routes>
+          <Route path="/" element={<Main />}></Route> 
+          <Route path="/genres" element={<Genres />}/>
+        </Routes>
+      </Router>
       </div>
       <div className="chatBox">{chatBox()}</div>
     </div>

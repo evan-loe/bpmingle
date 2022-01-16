@@ -20,6 +20,11 @@
     background: black; 
     color: white;  
     z-index: 2; 
+    transition: 0.4s; 
+}
+
+.show.active {
+    right: 200px; 
 }
 
 .show header {
@@ -55,7 +60,7 @@
 .toggle.active{
     background: url('close.png');
     background-repeat: no-repeat;
-    background-size: 20px; 
+    background-size: 17px; 
     background-position: center; 
 }
 
@@ -83,7 +88,7 @@
     z-index: 10; 
 }
 
-.text h2 {
+.text h2 { 
     font-size: 3em; 
     font-weight: 800; 
     line-height: 0.9em; 
@@ -93,12 +98,61 @@
 .text h3 {
     font-size: 3em; 
     font-weight: 800; 
-    line-height: 0.9em; 
+    line-height: 1.15em; 
     text-transform: uppercase; 
 }
 
 .text p {
     font-size: 1.1em; 
-    margin: 20px 0; 
+    margin-top: 10px; 
+    max-width: max-content; 
 }
 
+.text button {
+    /* display: in-line block;  */
+    border: none; 
+    font-size: 1em; 
+    background: white; 
+    padding: 10px 30px; 
+    text-decoration: none;
+    color: black; 
+
+    /* the below line doesnt work rip 
+    i want to move this box a little down */
+
+    margin-top: 100px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+
+.text button:hover{
+    opacity: 0.5; 
+    transition-duration: 0.3s; 
+} 
+
+.menu {
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    width: 300px; 
+    height: 100%; 
+    display: flex;  
+    align-items:center; 
+    justify-content:center; 
+} 
+
+.menu ul {
+    position: none;
+    list-style-type: none;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: black; 
+    line-height: 2; 
+}
+
+.menu ul li a:hover {
+    color:#759FBC; 
+}

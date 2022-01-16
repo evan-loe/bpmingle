@@ -1,14 +1,34 @@
 import React from 'react'
 import myVideo from "./vid.mp4"
 import styles from "./Main.css"
+import { Link } from 'react-router-dom'
+import { useRef, useEffect } from 'react';
+
 
 function Main() {
+    
+    useEffect(()=> {
+        menuToggle.current.addEventListener("click", clicked)
+    }, []) 
+
+    const menuToggle = useRef(null)
+    const show = useRef(null)
+
+    // const menuToggle = document.getElementById("hi")
+    // const show = document.getElementById("bye")
+
+    function clicked() {
+        console.log("works great")
+        menuToggle.current.classList.toggle('active')
+        show.current.classList.toggle('active')
+    }
+
     return (
         <div>
-            <div className = "show">
+            <div className="show" ref={show}>
                 <header>
                     <h2 className = "logo">BPMingle</h2>
-                    <div className = "toggle"></div>
+                    <div className = "toggle" ref={menuToggle}></div>
                 </header>
 
                 <video muted loop autoplay>
@@ -21,7 +41,13 @@ function Main() {
                     <h2>Music:</h2>
                     <h3>A Universal Language.</h3>
                     <p>asdfjkla;sdfjaklsd;faj;sdklfjadl;skfja;sdlkfj</p> 
-                    <a href = "#">Start Mingling!</a>
+                    
+                    <Link to="/genres">
+                        <button>
+                            Start button
+                        </button>
+                    </Link>
+
                 </div>
             </div>
 
@@ -33,6 +59,7 @@ function Main() {
                     <li><a href= "#">asdf</a></li>
                 </ul>
             </div>
+
         </div>
     )
 }
