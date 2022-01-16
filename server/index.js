@@ -16,11 +16,15 @@ const io = new Server(server, {//pass server created to socket.io
     },
 });
 
-io.on("connection", (socket)=> {//detect connection-> log id
-    console.log("User Connected: ${socket.id}");
+io.on("connection", (user)=> {//detect connection-> log id
+    console.log('User Joined: ', user.id);
 
-    socket.on("disconnect", ()=> {//detect disconnect
-        console.log("User Has Left", socket.id);
+    user.on("joinroom", (roomID) => {
+        user.join(roomID);
+        console.log('user: ${user.id} joined chat room: ${roomID}');
+    });
+    user.on("disconnect", ()=> {//detect disconnect
+        console.log("User Left: ", user.id);
     });
 });
 
