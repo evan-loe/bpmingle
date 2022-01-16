@@ -5,6 +5,7 @@ import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
 import chatBox from "./chatBox/ChatBox";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001"); //connect frontend to backend
+import Texts from "./Texts";
 
 function App() {
   return (
