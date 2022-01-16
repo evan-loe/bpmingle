@@ -16,17 +16,17 @@ function ChatBox(){
             user.emit("joinroom", chatroom);
         }
     };
-    return (
-        //takes in user info compentent
-        <div className = "chat">
-            <h1>Ready to mingle?</h1>
-            <input type="text" placeholder="First name, Last name" onChange = {(event) => {setusername(event.target.value)}} />
-            <input type="text" placeholder="Song Room" onChange = {(event) => {setchatroom(event.target.value)}}/>
-            <button onClick={joinroom}>Start Vibing</button>
+    // return (
+    //     //takes in user info compentent
+    //     <div className = "chat">
+    //         <h1>Ready to mingle?</h1>
+    //         <input type="text" placeholder="First name, Last name" onChange = {(event) => {setusername(event.target.value)}} />
+    //         <input type="text" placeholder="Song Room" onChange = {(event) => {setchatroom(event.target.value)}}/>
+    //         <button onClick={joinroom}>Start Vibing</button>
 
-            <Texts user={user} username = {username} chatroom = {chatroom}/> 
-        </div>
-    );
+    //         <Texts user={user} username = {username} chatroom = {chatroom}/> 
+    //     </div>
+    // );
 }
 
 export default ChatBox

@@ -24,7 +24,7 @@
 }
 
 .show.active {
-    right: 200px; 
+    right: 150px; 
 }
 
 .show header {
@@ -113,6 +113,7 @@
     border: none; 
     font-size: 1em; 
     background: white; 
+    border-radius: 5px; 
     padding: 10px 30px; 
     text-decoration: none;
     color: black; 
@@ -125,17 +126,18 @@
     letter-spacing: 2px; 
 }
 
-
 .text button:hover{
-    opacity: 0.5; 
+    opacity: 0.6; 
     transition-duration: 0.3s; 
+    transform:scale(1.05); 
+    transition-duration: 0.2s
 } 
 
 .menu {
-    position: absolute;
+    position:absolute;
     top: 0; 
     right: 0; 
-    width: 300px; 
+    width: 150px; 
     height: 100%; 
     display: flex;  
     align-items:center; 
@@ -143,7 +145,7 @@
 } 
 
 .menu ul {
-    position: none;
+    position: relative;
     list-style-type: none;
 }
 
