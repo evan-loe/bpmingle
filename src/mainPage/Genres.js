@@ -6,24 +6,27 @@ const client_id = "81aba320a1ad4c94b67b09675dec5622";
 function Genres() {
   return (
     <div className="wrapper">
-      <Box img={require("./images/jazz.jpg")} title="Jazz" button="Join!"></Box>
+      <Box img={require("./images/jazz.jpg")} 
+        title="Jazz" 
+        button="Select">
+      </Box>
 
       <Box
         img={require("./images/classical.jpg")}
         title="Classical"
-        button="Join!"
+        button="Select"
       ></Box>
 
       <Box
         img={require("./images/indie-pop.jpg")}
         title="Indie-pop"
-        button="Join!"
+        button="Select"
       ></Box>
 
       <Box
         img={require("./images/hip-hop.jpg")}
         title="Hip-hop"
-        button="Join!"
+        button="Select"
       ></Box>
     </div>
   );

@@ -1,9 +1,13 @@
 .Appl {
+  color: white; 
   width: 100vw;
   height: 100vh;
-  background: #fff;
-  color: #212121;
-  font-family: "Open Sans", sans-serif;
+  background: url('back.jpg'); 
+  background-size: cover;
+  opacity:0.95;  
+  /* font-family: "Open Sans", sans-serif; */
+  background-color: black; 
+  filter:brightness(90%);
   display: grid;
   place-items: center;
 }  
@@ -24,10 +28,11 @@ body {
   margin-bottom: 1rem;
 }
 .joinChatContainer input {
+  color: white; 
   width: 210px;
   height: 40px;
   margin: 7px;
-  border: 2px solid #43a047;
+  border: 2px solid white;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
@@ -41,13 +46,17 @@ body {
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
-  background: #43a047;
-  color: #fff;
+  background: white;
+  opacity: 0.8;
+  color: black;
   cursor: pointer;
 }
 
 .joinChatContainer button:hover {
-  background: #2e7d32;
+  opacity: 0.65; 
+  transition-duration: 0.3s; 
+  transform:scale(1.05); 
+  transition-duration: 0.2s
 }
 
 .chat-window {
@@ -61,22 +70,25 @@ body {
 .chat-window .chat-header {
   height: 45px;
   border-radius: 6px;
-  background: #263238;
+  background: white;
   position: relative;
+  margin-bottom: -3px; 
   cursor: pointer;
 }
 .chat-window .chat-header p {
   display: block;
   padding: 0 1em 0 2em;
-  color: #fff;
+  /* keep this black */
+  color: black;
   font-weight: 700;
+  text-transform: uppercase; 
   line-height: 45px;
 }
 
 .chat-window .chat-body {
   height: calc(450px - (45px + 70px));
-  border: 1px solid #263238;
-  background: #fff;
+  border: 1px solid white;
+  /* background: #fff; */
 
   position: relative;
 }
@@ -101,7 +113,7 @@ body {
   height: auto;
   min-height: 40px;
   max-width: 120px;
-  background-color: #43a047;
+  background-color: white;
   border-radius: 5px;
   color: white;
   display: flex;
@@ -153,18 +165,19 @@ body {
 
 .chat-window .chat-footer {
   height: 40px;
-  border: 1px solid #263238;
+  border: 1px solid white;
   border-top: none;
   display: flex;
 }
 
 .chat-window .chat-footer input {
+  color: white;
   height: 100%;
   flex: 85%;
   border: 0;
   padding: 0 0.7em;
   font-size: 1em;
-  border-right: 1px dotted #607d8b;
+  border-right: 1px dotted white;
 
   outline: none;
   font-family: "Open Sans", sans-serif;
@@ -180,7 +193,7 @@ body {
   background: transparent;
   outline: none;
   font-size: 25px;
-  color: lightgray;
+  color: white;
 }
 
 .chat-window .chat-footer button:hover {
