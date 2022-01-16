@@ -42,16 +42,6 @@ io.on("connection", (user) => {
   });
 });
 
-io.on("connection", (socket) => {
-  //detect connection-> log id
-  console.log(socket.id);
-
-  socket.on("disconnect", () => {
-    //detect disconnect
-    console.log("User Has Left", socket.id);
-  });
-});
-
 server.listen(3001, () => {
   console.log("is running");
 });
