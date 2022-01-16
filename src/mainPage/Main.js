@@ -23,6 +23,10 @@ function Main() {
     show.current.classList.toggle("active");
   }
 
+  // function onClick() {
+
+  // }
+
   return (
     <div>
       <div className="show" ref={show}>
@@ -32,7 +36,7 @@ function Main() {
         </header>
 
         <video muted autoplay loop>
-          <source src={myVideo} type="video/mp4"></source>
+          <source src={myVideo} type="video/mp4" ></source>
         </video>
 
         <div className="overlay"></div>

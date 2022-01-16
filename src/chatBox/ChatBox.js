@@ -20,7 +20,7 @@ function ChatBox() {
   };
   return (
     //takes in user info compentent
-    <div className="App">
+    <div className="Appl">
       {!dispalyText ? ( //shows sign in if user is not signed in yet
         <div className="joinChatContainer">
           <h1>Ready to mingle?</h1>
