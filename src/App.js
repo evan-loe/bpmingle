@@ -14,7 +14,7 @@ function App() {
         file to add elements on this page
       </div>
       {/* TODO: remove this header thing and add our main page component here. We also probably need to decide what states needs to be lifted up to this level*/}
-      <SpotifyPlayer></SpotifyPlayer>
+      <SpotifyPlayer genre="r-n-b"></SpotifyPlayer>
       <div className="mainPage">
         <Router>
           {/* <a href="/home">Go to home page.</a> */}

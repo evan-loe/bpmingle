@@ -1,0 +1,15 @@
+.songDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.songDetails img {
+  width: 200px;
+  height: 200px;
+}
+
+.songTitle {
+  font-weight: bold;
+}

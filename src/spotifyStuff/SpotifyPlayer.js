@@ -17,11 +17,14 @@ class SpotifyPlayer extends Component {
     api: null,
     volume: 50,
     sdkLoaded: false,
+    currentSong: {},
   };
 
+  // pass in genre prop
   constructor(props) {
     super(props);
     this.togglePlay = this.togglePlay.bind(this);
+    this.volumeSlider = this.volumeSlider.bind(this);
   }
 
   loadSpotifySDK() {
@@ -71,7 +74,7 @@ class SpotifyPlayer extends Component {
     await this.loadSpotifySDK();
   }
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     console.log("Component Updating", this.state);
   }
 
@@ -87,7 +90,7 @@ class SpotifyPlayer extends Component {
     url += "&response_type=code";
     url += "&redirect_uri=" + encodeURI(redirect_uri);
     url += "&show_dialog=true";
-    url += "&scope=streaming";
+    url += "&scope=streaming user-modify-playback-state";
     window.location.href = url; // redirect user
   }
 
@@ -121,41 +124,95 @@ class SpotifyPlayer extends Component {
         api: api,
       });
     });
+
+    player.addListener(
+      "player_state_changed",
+      ({ paused, track_window: { current_track, next_tracks } }) => {
+        if (paused) this.setState({ currentSong: {} });
+        else {
+          this.setState({
+            currentSong: {
+              name: current_track.name,
+              album: current_track.album.name,
+              albumArt: current_track.album.images[0].url,
+              artists: current_track.artists.map((artist) => {
+                return artist.name;
+              }),
+            },
+          });
+        }
+      }
+    );
   };
 
-  togglePlay() {
+  async togglePlay() {
+    this.state.player.activateElement();
     if (this.state.status !== "READY") {
       console.log("Spotify not done loading yet!");
       return;
     }
-    this.state.api
-      .play(["spotify:track:1aRgsJJJMIAaZgiOtGRMl0"])
-      .catch((err) => {
-        console.log(err);
-      });
+    const songs = await this.state.api.getGenreSongs(this.props.genre);
+    console.log(songs);
+    this.state.api.play(songs).catch((err) => {
+      console.log(err);
+    });
+    // request songs
+  }
+
+  volumeSlider(event) {
+    this.setState({ volume: event.target.value });
+    this.state.player.setVolume(event.target.value / 100).then(() => {
+      console.log(`Volume set to ${event.target.value}`);
+    });
   }
 
   render() {
     return (
       <div>
-        <div>spotify playback will be here</div>
-        <button
-          id="togglePlay"
-          onClick={this.togglePlay}
-          disabled={this.state.status !== "READY"}
-        >
-          Toggle Play
-        </button>
-        <button id="loginSpotify" onClick={this.authenticate}>
-          Login to Spotify
-        </button>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={this.state.volume}
-          className={styles.slider}
-        ></input>
+        <div className={styles.spotifyContainer}>
+          <div className={styles.inputContainer}>
+            <button
+              id="togglePlay"
+              onClick={this.togglePlay}
+              disabled={this.state.status !== "READY"}
+            >
+              Toggle Play
+            </button>
+            <button id="loginSpotify" onClick={this.authenticate}>
+              Login to Spotify
+            </button>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={this.state.volume}
+              className={styles.slider}
+              onChange={this.volumeSlider}
+              list="volumeLabel"
+            />
+          </div>
+
+          <div className={styles.songDetails}>
+            <img
+              src={
+                this.state.currentSong.albumArt ??
+                require("./assets/eigthnotes.jpg")
+              }
+              alt="album cover art"
+              width={window.innerWidth * 0.2}
+              height={window.innerWidth * 0.2}
+            ></img>
+            <div className={styles.songTitle}>
+              {this.state.currentSong.name ?? "No song currently playing"}
+            </div>
+            <div className={styles.songAlbum}>
+              {this.state.currentSong.album ?? "no album"}
+            </div>
+            <div className={styles.songArtists}>
+              {(this.state.currentSong.artists ?? ["no artist"]).join(", ")}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -19,7 +19,7 @@ const server = http.createServer(app); //generate server
 const io = new Server(server, {
   //pass server created to socket.io
   cors: {
-    origin: "http://localhost:5000", //to be changed
+    origin: "http://localhost:3000", //to be changed
     methods: ["GET", "POST"],
   },
 });
