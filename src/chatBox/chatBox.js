@@ -4,7 +4,7 @@ function chatBox(){
     return (
         <header>
             <h1>
-                hello
+                hello justin was here
             </h1>
         </header>
     )
