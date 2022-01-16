@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import "./Texts.css";
+import ScrollToBottom from "react-scroll-to-bottom";
+
 
 function Texts({user, username, chatroom }){
     const [currenttext, setcurrenttext] = useState("");
+    const [texthistory, settexthistory] = useState([]);//stores chat histroy
 
     const sendtext = async()=>{//send data to backend
         if (currenttext !==""){//prevent empty test
@@ -12,24 +16,43 @@ function Texts({user, username, chatroom }){
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
             };
             await user.emit("sendtext", textData);
+            settexthistory((history) => [...history, textData]);//displays own text
+            setcurrenttext("");
         }
     };
 
     useEffect(()=>{
-        user.on("gettext", (data)=>{
-            console.log(data);
-        })
+        user.on("gettext", (textdata)=>{//chat history
+            console.log(textdata);
+            settexthistory((history) => [...history, textdata]);
+        });
     }, [user]);
     return(
-        <div>
-            <div className="text-header">
+        <div className="chat-window">
+            <div className="chat-header">
                 <p>Chat Log</p>
             </div>
-            <div className="text-body">
-
+            <div className="chat-body">
+                <ScrollToBottom className="message-container">
+                {texthistory.map((textcontent)=> {
+                    return (
+                        <div className="message" id={username === textcontent.sender? "other" : "you"}>
+                            <div>
+                                <div className="message-content">
+                                    <p>{textcontent.text}</p>
+                                </div>
+                                <div className="message-meta">
+                                    <p id="time">{textcontent.time}</p>
+                                    <p id="author">{textcontent.sender}</p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    })}
+                </ScrollToBottom>
             </div>
-            <div className="text-tosend">
-                <input tpye="messange" placeholder="Hey, you like this song too?" onChange = {(event) => {setcurrenttext(event.target.value)}}/>
+            <div className="chat-footer">
+                <input type="text" value={currenttext} placeholder="Hey, you like this song too?" onChange = {(event) => {setcurrenttext(event.target.value)}} onKeyPress={(event) => {event.key === "Enter" && sendtext();}}/>
                 <button onClick={sendtext}>&#9658;</button>
             </div>
         </div>
