@@ -1,4 +1,4 @@
-# BPMingle
+# SIGNAL
 
 discover new music, and new people while you're at it!
 
