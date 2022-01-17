@@ -5,13 +5,11 @@ const querystring = require("query-string");
 const axios = require("axios");
 
 const redirect_uri =
-  process.env.PRODUCTION_ENV === "PRODUCTION"
+  process.env.NODE_ENV === "production"
     ? "https://bpmingle.herokuapp.com/api/callback"
     : "http://localhost:3001/api/callback";
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 const client_secret = process.env.SPOTIFY_SECRET;
-console.log("production env", process.env.PRODUCTION_ENV);
-console.log("spotify secret", process.env.SPOTIFY_SECRET);
 
 const formUrlEncoded = (x) =>
   Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, "");
@@ -51,12 +49,12 @@ router.get("/callback", (req, res) => {
   })
     .then((response) => {
       console.log(
-        process.env.PRODUCTION_ENV === "PRODUCTION"
+        process.env.NODE_ENV === "production"
           ? "https://bpmingle.herokuapp.com/chatroom/#"
           : "http://localhost:3000/chatroom/#"
       );
       res.redirect(
-        (process.env.PRODUCTION_ENV === "PRODUCTION"
+        (process.env.NODE_ENV === "production"
           ? "https://bpmingle.herokuapp.com/chatroom/#"
           : "http://localhost:3000/chatroom/#") +
           querystring.stringify({
