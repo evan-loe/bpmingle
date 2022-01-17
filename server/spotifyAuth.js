@@ -15,8 +15,6 @@ router.get("/login", (req, res) => {
   const state = generateRandomString(16);
   const scope = "streaming";
 
-  console.log("login route");
-
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -30,7 +28,6 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/callback", (req, res) => {
-  console.log("callback");
   const code = req.query.code || null;
   axios({
     method: "post",
@@ -48,13 +45,14 @@ router.get("/callback", (req, res) => {
     json: true,
   })
     .then((response) => {
-      console.log(response);
       res.redirect(
-        "http://localhost:3000/chatroom/#" +
-          querystring.stringify({
-            access_token: response.data.access_token,
-            refresh_token: response.data.refresh_token,
-          })
+        process.env.PRODUCTION_ENV === "PRODUCTION"
+          ? "https://bpmingle.herokuapp.com/chatroom/#"
+          : "http://localhost:3000/chatroom/#" +
+              querystring.stringify({
+                access_token: response.data.access_token,
+                refresh_token: response.data.refresh_token,
+              })
       );
     })
     .catch((err) => {
