@@ -49,13 +49,13 @@ router.get("/callback", (req, res) => {
   })
     .then((response) => {
       res.redirect(
-        process.env.PRODUCTION_ENV === "PRODUCTION"
+        (process.env.PRODUCTION_ENV === "PRODUCTION"
           ? "https://bpmingle.herokuapp.com/chatroom/#"
-          : "http://localhost:3000/chatroom/#" +
-              querystring.stringify({
-                access_token: response.data.access_token,
-                refresh_token: response.data.refresh_token,
-              })
+          : "http://localhost:3000/chatroom/#") +
+          querystring.stringify({
+            access_token: response.data.access_token,
+            refresh_token: response.data.refresh_token,
+          })
       );
     })
     .catch((err) => {
