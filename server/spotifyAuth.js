@@ -4,7 +4,10 @@ const { generateRandomString } = require("./utils/utils");
 const querystring = require("query-string");
 const axios = require("axios");
 
-const redirect_uri = "http://localhost:3001/api/callback";
+const redirect_uri =
+  process.env.PRODUCTION_ENV === "PRODUCTION"
+    ? "https://bpmingle.herokuapp.com/api/callback"
+    : "http://localhost:3001/api/callback";
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 const client_secret = process.env.SPOTIFY_SECRET;
 
