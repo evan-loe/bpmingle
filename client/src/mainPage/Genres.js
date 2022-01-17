@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Genres.css";
+import "./Genres.css";
 
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 
@@ -43,7 +43,7 @@ function Box(props) {
     localStorage.setItem("selectedGenre", props.selectedGenre);
 
     const redirect_uri =
-      process.env.PRODUCTION_ENV === "DEVELOPMENT"
+      process.env.NODE_ENV === "development"
         ? "http://localhost:3001/api/callback"
         : "https://bpmingle.herokuapp.com/api/callback";
     let url = "https://accounts.spotify.com/authorize?";

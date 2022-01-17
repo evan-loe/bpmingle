@@ -6,9 +6,9 @@ import Texts from "../Texts";
 import SpotifyPlayer from "../spotifyStuff/SpotifyPlayer";
 
 const user = io.connect(
-  process.env.PRODUCTION_ENV === "DEVELOPMENT"
-    ? "http://localhost:3001/api/callback"
-    : `https://bpmingle.herokuapp.com/}`
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001"
+    : `https://bpmingle.herokuapp.com/`
 ); //connect frontend to backend
 
 function ChatBox(prop) {
