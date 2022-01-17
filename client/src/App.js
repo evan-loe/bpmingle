@@ -5,7 +5,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SpotifyPlayer from "./spotifyStuff/SpotifyPlayer";
 import ChatBox from "./chatBox/ChatBox";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:3001"); //connect frontend to backend
+const socket = io.connect(
+  process.env.PRODUCTION_ENV === "DEVELOPMENT"
+    ? "http://localhost:3001"
+    : "https://bpmingle.herokuapp.com/"
+); //connect frontend to backend
 // import Texts from "./Texts";
 
 function App() {
