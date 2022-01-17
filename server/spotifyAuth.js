@@ -4,9 +4,14 @@ const { generateRandomString } = require("./utils/utils");
 const querystring = require("query-string");
 const axios = require("axios");
 
-const redirect_uri = "http://localhost:3001/api/callback";
+const redirect_uri =
+  process.env.PRODUCTION_ENV === "PRODUCTION"
+    ? "https://bpmingle.herokuapp.com/api/callback"
+    : "http://localhost:3001/api/callback";
 const client_id = "81aba320a1ad4c94b67b09675dec5622";
 const client_secret = process.env.SPOTIFY_SECRET;
+console.log("production env", process.env.PRODUCTION_ENV);
+console.log("spotify secret", process.env.SPOTIFY_SECRET);
 
 const formUrlEncoded = (x) =>
   Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, "");
@@ -14,8 +19,6 @@ const formUrlEncoded = (x) =>
 router.get("/login", (req, res) => {
   const state = generateRandomString(16);
   const scope = "streaming";
-
-  console.log("login route");
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
@@ -30,7 +33,6 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/callback", (req, res) => {
-  console.log("callback");
   const code = req.query.code || null;
   axios({
     method: "post",
@@ -48,9 +50,15 @@ router.get("/callback", (req, res) => {
     json: true,
   })
     .then((response) => {
-      console.log(response);
+      console.log(
+        process.env.PRODUCTION_ENV === "PRODUCTION"
+          ? "https://bpmingle.herokuapp.com/chatroom/#"
+          : "http://localhost:3000/chatroom/#"
+      );
       res.redirect(
-        "http://localhost:3000/chatroom/#" +
+        (process.env.PRODUCTION_ENV === "PRODUCTION"
+          ? "https://bpmingle.herokuapp.com/chatroom/#"
+          : "http://localhost:3000/chatroom/#") +
           querystring.stringify({
             access_token: response.data.access_token,
             refresh_token: response.data.refresh_token,

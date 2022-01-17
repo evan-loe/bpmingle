@@ -9,6 +9,7 @@ import {
   faStepBackward,
   faStepForward,
 } from "@fortawesome/free-solid-svg-icons";
+import { formatDuration } from "../utils/utils";
 // import axios from "axios";
 // import { useLocation } from "react-router-dom";
 // import querystring from "query-string";
@@ -228,19 +229,6 @@ class SpotifyPlayer extends Component {
     // );
   }
 
-  formatDuration(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds - hours * 60) / 60);
-    return (
-      (hours !== 0 ? `${hours}` : "") +
-      `${minutes === 0 ? "0" : minutes}:${
-        Math.floor(seconds - hours * 60 - minutes * 60) < 10
-          ? `0${Math.floor(seconds - hours * 60 - minutes * 60)}`
-          : Math.floor(seconds - hours * 60 - minutes * 60)
-      }`
-    );
-  }
-
   render() {
     return !this.props.displayText ? (
       <div></div>
@@ -310,9 +298,9 @@ class SpotifyPlayer extends Component {
                 // onChange={this.seekSlide}
               />
               <div className={styles.labelContainer}>
-                <div>{this.formatDuration(this.state.seekPos / 1000)}</div>
+                <div>{formatDuration(this.state.seekPos / 1000)}</div>
                 <div>
-                  {this.formatDuration(this.state.currentSong.duration / 1000)}
+                  {formatDuration(this.state.currentSong.duration / 1000)}
                 </div>
               </div>
             </div>

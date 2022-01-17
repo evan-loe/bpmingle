@@ -1,6 +1,6 @@
 import React from "react";
 // import myVideo from "./Videos/vid.mp4";
-import styles from "./Main.css";
+import "./Main.css";
 import { Link } from "react-router-dom";
 import { useRef, useEffect } from "react";
 
@@ -12,20 +12,10 @@ function Main() {
   const menuToggle = useRef(null);
   const show = useRef(null);
 
-  // lol evan was here
-
-  // const menuToggle = document.getElementById("hi")
-  // const show = document.getElementById("bye")
-
   function clicked() {
-    console.log("works great");
     menuToggle.current.classList.toggle("active");
     show.current.classList.toggle("active");
   }
-
-  // function onClick() {
-
-  // }
 
   return (
     <div>
@@ -55,16 +45,18 @@ function Main() {
       <div className="menu">
         <ul>
           <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">News</a>
+            <a href="/">Home</a>
           </li>
           <li>
             <a href="#">About</a>
           </li>
           <li>
             <a href="#">Contact</a>
+          </li>
+          <li>
+            <Link className="link" to="/privacypolicy">
+              Privacy Policy
+            </Link>
           </li>
         </ul>
       </div>
