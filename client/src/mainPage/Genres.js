@@ -41,10 +41,11 @@ function Box(props) {
   function spotify() {
     console.log(props.selectedGenre);
     localStorage.setItem("selectedGenre", props.selectedGenre);
+
     const redirect_uri =
-      process.env.PRODUCTION_ENV === "PRODUCTION"
-        ? "https://bpmingle.herokuapp.com/api/callback"
-        : "http://localhost:3001/api/callback";
+      process.env.PRODUCTION_ENV === "DEVELOPMENT"
+        ? "http://localhost:3001/api/callback"
+        : "https://bpmingle.herokuapp.com/api/callback";
     let url = "https://accounts.spotify.com/authorize?";
     url += "client_id=" + client_id;
     url += "&response_type=code";
