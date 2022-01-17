@@ -36,7 +36,7 @@ io.on("connection", (user) => {
   console.log("User Joined: " + user.id);
 
   user.on("joinroom", (roomID) => {
-    user.join("Joined chatroom ", roomID);
+    user.join(roomID);
     console.log("user: " + user.id + " joined chat room: " + roomID);
   });
   user.on("sendtext", (data) => {
