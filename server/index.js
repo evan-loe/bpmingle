@@ -5,7 +5,7 @@ const http = require("http");
 const cors = require("cors");
 const Server = require("socket.io").Server; //import socket.io library
 const path = require("path");
-console.log(require("dotenv").config({ path: path.join(__dirname, "./.env") }));
+// console.log(require("dotenv").config({ path: path.join(__dirname, "./.env") }));
 
 app.use(cors()); //cors midware
 app.use(express.static(path.join(__dirname, "../client/build")));
