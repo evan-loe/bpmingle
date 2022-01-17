@@ -36,11 +36,11 @@ io.on("connection", (user) => {
   console.log("User Joined: " + user.id);
 
   user.on("joinroom", (roomID) => {
-    user.join(roomID);
+    user.join("Joined chatroom ", roomID);
     console.log("user: " + user.id + " joined chat room: " + roomID);
   });
   user.on("sendtext", (data) => {
-    // console.log(data);
+    console.log(data);
     user.to(data.chatroom).emit("gettext", data); //forward data to other users
   });
   user.on("disconnect", () => {
