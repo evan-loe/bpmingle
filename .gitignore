@@ -25,3 +25,5 @@ yarn-error.log*
 testing
 
 server/.env
+
+.vscode
